@@ -19,7 +19,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 
 from bot import app, dispatcher, bot
-from bot.helper.ext_utils import custom_filters
+from bot.helper.ext_utils import custom_filters                         #######################################
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.message_utils import sendMessage
@@ -191,7 +191,7 @@ class TorrentSearch:
         string = self.RESULT_STR.format(**values)
         extra = ""
         if "Files" in values:
-            tmp_str = "➲[{Quality} - {Type} ({Size})]({Torrent}): `{magnet}`"
+            tmp_str = "🧲 TorrentLink: 👉 [{Quality} - {Type} ({Size})]({Torrent})\n\n🧲 MagnetLink:\n\n `{magnet}`\n\n"
             extra += "\n".join(
                 tmp_str.format(**f, magnet=self.format_magnet(f['Magnet']))
                 for f in values['Files']
@@ -199,7 +199,7 @@ class TorrentSearch:
         else:
             magnet = values.get('magnet', values.get('Magnet'))  # Avoid updating source dict
             if magnet:
-                extra += f"➲Magnet: `{self.format_magnet(magnet)}`"
+                extra += f"🧲 MagnetLink: `{self.format_magnet(magnet)}`"
         if (extra):
             string += "\n" + extra
         return string
@@ -220,8 +220,8 @@ class TorrentSearch:
             inline.append(nextBtn)
 
         res_lim = min(self.RESULT_LIMIT, len(self.response) - self.RESULT_LIMIT*self.index)
-        result = f"**Page - {self.index+1}**\n\n"
-        result += "\n\n=======================\n\n".join(
+        result = f"**✥══ @awsmirrorzone ══✥\n\n📖 Page - {self.index+1}**\n\n"
+        result += "\n\n✥══ @Mani5GRockers ══✥\n\n".join(
             self.get_formatted_string(self.response[self.response_range[self.index]+i])
             for i in range(res_lim)
         )
@@ -234,11 +234,11 @@ class TorrentSearch:
 
     async def find(self, client, message):
         if len(message.command) < 2:
-            await message.reply_text(f"Usage: /{self.command} query")
+            await message.reply_text(f"👉 How to Use Torrent Search ?\nExample: \n\n /{self.command} Search Name")
             return
 
         query = urlencode(message.text.split(None, 1)[1])
-        self.message = await message.reply_text("Searching")
+        self.message = await message.reply_text("🧲 MagnetLink 🔍 Searching...")
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(f"{self.source}/{query}", timeout=15) as resp:
@@ -250,7 +250,7 @@ class TorrentSearch:
                     self.response = result
                     self.response_range = range(0, len(self.response), self.RESULT_LIMIT)
         except:
-            await self.message.edit("No Results Found.")
+            await self.message.edit("🧲 No Results Found ❗️")
             return
         await self.update_message()
 
@@ -271,61 +271,63 @@ class TorrentSearch:
         await self.update_message()
 
 RESULT_STR_1337 = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "🗂 Name: `{Name}`\n"
+    "🗃 Size: {Size}\n"
+    "👤 Seeders: {Seeders} | 🔄 Leechers: {Leechers}"
 )
 RESULT_STR_PIRATEBAY = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "🗂 Name: `{Name}`\n"
+    "🗃 Size: {Size}\n"
+    "👤 Seeders: {Seeders} | 🔄 Leechers: {Leechers}"
 )
 RESULT_STR_TGX = (
-    "➲Name: `{Name}`\n" 
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "🗂 Name: `{Name}`\n" 
+    "🗃 Size: {Size}\n"
+    "👤 Seeders: {Seeders} | 🔄 Leechers: {Leechers}"
 )
 RESULT_STR_YTS = (
-    "➲Name: `{Name}`\n"
-    "➲Released on: {ReleasedDate}\n"
-    "➲Genre: {Genre}\n"
-    "➲Rating: {Rating}\n"
-    "➲Likes: {Likes}\n"
-    "➲Duration: {Runtime}\n"
-    "➲Language: {Language}"
+    "🗂 Name: `{Name}`\n"
+    "★ Released on: {ReleasedDate}\n"
+    "★ Genre: {Genre}\n"
+    "★ Rating: {Rating}\n"
+    "★ Likes: {Likes}\n"
+    "★ Duration: {Runtime}\n"
+    "★ Language: {Language}\n\n"
 )
 RESULT_STR_EZTV = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders}"
+    "🗂 Name: `{Name}`\n"
+    "🗃 Size: {Size}\n"
+    "👤 Seeders: {Seeders}"
 )
 RESULT_STR_TORLOCK = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "🗂 Name: `{Name}`\n"
+    "🗃 Size: {Size}\n"
+    "👤 Seeders: {Seeders} | 🔄 Leechers: {Leechers}"
 )
 RESULT_STR_RARBG = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "🗂 Name: `{Name}`\n"
+    "🗃 Size: {Size}\n"
+    "👤 Seeders: {Seeders} | 🔄 Leechers: {Leechers}"
 )
 RESULT_STR_ALL = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "🗂 Name: `{Name}`\n"
+    "🗃 Size: {Size}\n"
+    "👤 Seeders: {Seeders} | 🔄 Leechers: {Leechers}"
 )
 
-TORRENT_API = 'https://api.linkstore.eu.org/api'
+TORRENT_API_URL = 'https://torrent.awslink.in'
+#TORRENT_API_URL = 'https://api.eunhamirror.repl.co'
+#TORRENT_API_URL = 'https://api.linkstore.eu.org'
 
 torrents_dict = {
-    '1337x': {'source': f"{TORRENT_API}/1337x/", 'result_str': RESULT_STR_1337},
-    'piratebay': {'source': f"{TORRENT_API}/piratebay/", 'result_str': RESULT_STR_PIRATEBAY},
-    'tgx': {'source': f"{TORRENT_API}/tgx/", 'result_str': RESULT_STR_TGX},
-    'yts': {'source': f"{TORRENT_API}/yts/", 'result_str': RESULT_STR_YTS},
-    'eztv': {'source': f"{TORRENT_API}/eztv/", 'result_str': RESULT_STR_EZTV},
-    'torlock': {'source': f"{TORRENT_API}/torlock/", 'result_str': RESULT_STR_TORLOCK},
-    'rarbg': {'source': f"{TORRENT_API}/rarbg/", 'result_str': RESULT_STR_RARBG},
-    'ts': {'source': f"{TORRENT_API}/all/", 'result_str': RESULT_STR_ALL}
+    '1337x': {'source': f"{TORRENT_API_URL}/api/1337x/", 'result_str': RESULT_STR_1337},
+    'piratebay': {'source': f"{TORRENT_API_URL}/api/piratebay/", 'result_str': RESULT_STR_PIRATEBAY},
+    'tgx': {'source': f"{TORRENT_API_URL}/api/tgx/", 'result_str': RESULT_STR_TGX},
+    'yts': {'source': f"{TORRENT_API_URL}/api/yts/", 'result_str': RESULT_STR_YTS},
+    'eztv': {'source': f"{TORRENT_API_URL}/api/eztv/", 'result_str': RESULT_STR_EZTV},
+    'torlock': {'source': f"{TORRENT_API_URL}/api/torlock/", 'result_str': RESULT_STR_TORLOCK},
+    'rarbg': {'source': f"{TORRENT_API_URL}/api/rarbg/", 'result_str': RESULT_STR_RARBG},
+    'ts': {'source': f"{TORRENT_API_URL}/api/all/", 'result_str': RESULT_STR_ALL}
 }
 
 torrent_handlers = [
@@ -335,17 +337,37 @@ torrent_handlers = [
 
 def searchhelp(update, context):
     help_string = '''
-<b>Torrent Search</b>
-• /nyaasi <i>[search query]</i>
-• /sukebei <i>[search query]</i>
-• /1337x <i>[search query]</i>
-• /piratebay <i>[search query]</i>
-• /tgx <i>[search query]</i>
-• /yts <i>[search query]</i>
-• /eztv <i>[search query]</i>
-• /torlock <i>[search query]</i>
-• /rarbg <i>[search query]</i>
-• /ts <i>[search query]</i>
+<b>🧲 All 🚦 Torrent Search 🔍</b>
+
+<b>✥═══ @awsmirrorzone ═══✥</b>
+
+★ /ts <i>[search name]</i>
+★ /1337x <i>[search name]</i>
+★ /piratebay <i>[search name]</i>
+★ /tgx <i>[search name]</i>
+★ /eztv <i>[search name]</i>
+★ /torlock <i>[search name]</i>
+★ /rarbg <i>[search name]</i>
+★ /yts <i>[search name]</i>
+★ /nyaasi <i>[search name]</i>
+★ /sukebei <i>[search name]</i>
+
+<b> 🧲 Torrent 🔍 Search Avilabile Sites:</b>
+
+<i>★ ts - All Torrent Seacrh</i>
+<i>★ 337x - 337x Torrent Seacrh</i>
+<i>★ piratebay - Piratebay Torrent Seacrh</i>
+<i>★ tgx - TorrentGalaxy Torrent Seacrh</i>
+<i>★ yts - YTS Torrent Seacrh</i>
+<i>★ eztv - Eztv Torrent Seacrh</i>
+<i>★ torlock - Torlock Torrent Seacrh</i>
+<i>★ rarbg - Rarbg Torrent Seacrh</i>
+<i>★ sukebei - Sukebei Torrent Seacrh</i>
+<i>★ nyaasi - Nyaa Torrent Seacrh</i>
+
+<b>Example Comment Use :</b> <code>/ts search name</code>
+
+<b>✥═══ @Mani5GRockers ═══✥</b>
 '''
     sendMessage(help_string, context.bot, update)
     

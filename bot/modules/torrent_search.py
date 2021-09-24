@@ -168,7 +168,7 @@ class TorrentSearch:
     response = None
     response_range = None
 
-    RESULT_LIMIT = 4
+    RESULT_LIMIT = 10
     RESULT_STR = None
 
     def __init__(self, command: str, source: str, result_str: str):

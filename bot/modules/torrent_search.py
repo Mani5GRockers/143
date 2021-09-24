@@ -365,7 +365,7 @@ def searchhelp(update, context):
 <i>★ sukebei - Sukebei Torrent Seacrh</i>
 <i>★ nyaasi - Nyaa Torrent Seacrh</i>
 
-<b>Example Comment Use :</b> <code>/ts search name</code>
+<b>Example Use :</b> <code>/ts search name</code>
 
 <b>✥═══ @Mani5GRockers ═══✥</b>
 '''

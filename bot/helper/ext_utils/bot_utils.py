@@ -117,7 +117,7 @@ def get_progress_bar_string(status):
 
 def get_readable_message():
     with download_dict_lock:
-        msg = "\n✥═══ @awsmirrorzone ═══✥\n\n"
+        msg = "\n✥══ @awsmirrorzone ══✥\n\n"
         start = 0
         if STATUS_LIMIT is not None:
             dick_no = len(download_dict)

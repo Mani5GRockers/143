@@ -74,6 +74,7 @@ class GoogleDriveHelper:
         self.total_folders = 0
         self.transferred_size = 0
         self.sa_count = 0
+        self.alt_auth = False
 
 
     def speed(self):
@@ -257,8 +258,6 @@ class GoogleDriveHelper:
     def upload(self, file_name: str):
         self.is_downloading = False
         self.is_uploading = True
-        if USE_SERVICE_ACCOUNTS:
-            self.service_account_count = len(os.listdir("accounts"))
         self.__listener.onUploadStarted()
         file_dir = f"{DOWNLOAD_DIR}{self.__listener.message.message_id}"
         file_path = f"{file_dir}/{file_name}"
@@ -339,7 +338,7 @@ class GoogleDriveHelper:
                 reason = json.loads(err.content).get('error').get('errors')[0].get('reason')
                 if reason in ['userRateLimitExceeded', 'dailyLimitExceeded']:
                     if USE_SERVICE_ACCOUNTS:
-                        if self.sa_count == self.service_account_count:
+                        if self.sa_count == len(os.listdir("accounts")):
                             self.is_cancelled = True
                             raise err
                         else:
@@ -388,8 +387,6 @@ class GoogleDriveHelper:
         self.start_time = time.time()
         self.total_files = 0
         self.total_folders = 0
-        if USE_SERVICE_ACCOUNTS:
-            self.service_account_count = len(os.listdir("accounts"))
         try:
             file_id = self.getIdFromUrl(link)
         except (KeyError,IndexError):
@@ -474,6 +471,10 @@ class GoogleDriveHelper:
             if "User rate limit exceeded" in str(err):
                 msg = "User rate limit exceeded."
             elif "File not found" in str(err):
+                token_service = self.alt_authorize()
+                if token_service is not None:
+                    self.__service = token_service
+                    return self.clone(link)
                 msg = "File not found."
             else:
                 msg = f"Error.\n{err}"
@@ -571,6 +572,30 @@ class GoogleDriveHelper:
                 scopes=self.__OAUTH_SCOPE)
         return build('drive', 'v3', credentials=credentials, cache_discovery=False)
 
+    def alt_authorize(self):
+        credentials = None
+        if USE_SERVICE_ACCOUNTS and not self.alt_auth:
+            self.alt_auth = True
+            if os.path.exists(self.__G_DRIVE_TOKEN_FILE):
+                LOGGER.info("Authorize with token.pickle")
+                with open(self.__G_DRIVE_TOKEN_FILE, 'rb') as f:
+                    credentials = pickle.load(f)
+            if credentials is None or not credentials.valid:
+                if credentials and credentials.expired and credentials.refresh_token:
+                    credentials.refresh(Request())
+                else:
+                    flow = InstalledAppFlow.from_client_secrets_file(
+                        'credentials.json', self.__OAUTH_SCOPE)
+                    LOGGER.info(flow)
+                    credentials = flow.run_console(port=0)
+
+                # Save the credentials for the next run
+                with open(self.__G_DRIVE_TOKEN_FILE, 'wb') as token:
+                    pickle.dump(credentials, token)
+            return build('drive', 'v3', credentials=credentials, cache_discovery=False)
+        else:
+            return None
+
 
     def edit_telegraph(self):
         nxt_page = 1 
@@ -621,16 +646,17 @@ class GoogleDriveHelper:
         return rtnlist
 
     def drive_query(self, parent_id, fileName):
-        if RECURSIVE_SEARCH:
-            if self.stopDup:
-                query = f"name = '{fileName}' and "
-            else:
-                fileName = fileName.split(' ')
-                query = "".join(
-                    f"name contains '{name}' and "
-                    for name in fileName
-                    if name != ''
-                )
+        try:
+            if RECURSIVE_SEARCH:
+                if self.stopDup:
+                    query = f"name = '{fileName}' and "
+                else:
+                    fileName = fileName.split(' ')
+                    query = "".join(
+                        f"name contains '{name}' and "
+                        for name in fileName
+                        if name != ''
+                    )
 
             query += "trashed = false"
             if parent_id == "root":

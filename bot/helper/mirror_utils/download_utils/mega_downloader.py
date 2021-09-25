@@ -178,7 +178,7 @@ class MegaDownloadHelper:
                 gd = GoogleDriveHelper()
                 smsg, button = gd.drive_list(mname, True)
             if smsg:
-                msg1 = "File/Folder is already available in Drive.\nHere are the search results:"
+                msg1 = "➩ File/Folder is already available in Drive.\n➩ Here are the search results:"
                 sendMarkup(msg1, listener.bot, listener.update, button)
                 executor.continue_event.set()
                 return

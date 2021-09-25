@@ -863,8 +863,14 @@ class GoogleDriveHelper:
         except Exception as err:
             err = str(err).replace('>', '').replace('<', '')
             LOGGER.error(err)
-            msg = "File not found." if "File not found" in str(err) else f"Error.\n{err}"
-            return msg
+            if "File not found" in str(err):
+                token_service = self.alt_authorize()
+                if token_service is not None:
+                    self.__service = token_service
+                    return self.count(link)
+                msg = "File not found." 
+            else:
+                msg = f"Error.\n{err}"
         return msg
 
 
@@ -914,7 +920,14 @@ class GoogleDriveHelper:
         except Exception as err:
             err = str(err).replace('>', '').replace('<', '')
             LOGGER.error(err)
-            msg = "File not found." if "File not found" in str(err) else f"Error.\n{err}"
+            if "File not found" in str(err):
+                token_service = self.alt_authorize()
+                if token_service is not None:
+                    self.__service = token_service
+                    return self.clonehelper(link)
+                msg = "File not found."  
+            else:
+                msg = f"Error.\n{err}"
             return msg, "", "", ""
         return "", clonesize, name, files
 
@@ -922,8 +935,6 @@ class GoogleDriveHelper:
     def download(self, link):
         self.is_downloading = True
         file_id = self.getIdFromUrl(link)
-        if USE_SERVICE_ACCOUNTS:
-            self.service_account_count = len(os.listdir("accounts"))
         self.updater = setInterval(self.update_interval, self._on_download_progress)
         try:
             meta = self.getFileMetadata(file_id)
@@ -938,6 +949,12 @@ class GoogleDriveHelper:
             LOGGER.error(err)
             if "downloadQuotaExceeded" in str(err):
                 err = "Download Quota Exceeded."
+            elif "File not found" in str(err):
+                token_service = self.alt_authorize()
+                if token_service is not None:
+                    self.__service = token_service
+                    return self.download(link)
+                err = "File not found"
             self.__listener.onDownloadError(err)
             return
         finally:
@@ -1004,7 +1021,7 @@ class GoogleDriveHelper:
                     ]:
                         raise err
                     if USE_SERVICE_ACCOUNTS:
-                        if self.sa_count == self.service_account_count:
+                        if self.sa_count == len(os.listdir("accounts")):
                             self.is_cancelled = True
                             raise err
                         else:

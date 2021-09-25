@@ -10,6 +10,10 @@
 
 **Slam Mirror Bot** is a _multipurpose_ Telegram Bot written in Python for mirroring files on the Internet to our beloved Google Drive. Based on [python-aria-mirror-bot](https://github.com/lzzy12/python-aria-mirror-bot)
 
+# https://github.com/SlamDevs/slam-mirrorbot/commits
+# Latest Commits and updated
+     * Commits on Sep 25, 2021 Merge pull request 428 from ronin08/patch-15  @anasty17 anasty17 committed
+
 # Features:
 <details>
     <summary><b>Click Here For More Details</b></summary>

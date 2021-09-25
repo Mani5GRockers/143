@@ -1,6 +1,6 @@
 [![SlamDevs](https://gitlab.awslink.in/api/logoposter.jpg)](https://t.me/SlamDevs)
 
-# Slam Mirror Bot
+# AWS MIRROR ZONE Bot
 ![GitHub Repo stars](https://img.shields.io/github/stars/SlamDevs/slam-mirrorbot?color=blue&style=flat)
 ![GitHub forks](https://img.shields.io/github/forks/SlamDevs/slam-mirrorbot?color=green&style=flat)
 ![GitHub contributors](https://img.shields.io/github/contributors/SlamDevs/slam-mirrorbot?style=flat)

@@ -192,7 +192,7 @@ class MirrorListener(listeners.MirrorListeners):
             uname = f"@{self.message.from_user.username}"
         else:
             uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
-        msg = f"{uname} your download has been stopped due to: {error}"
+        msg = f"👉 User 🤴 {uname}\n\n👉 Your Mirror has been Stopped ❌\n\n🔘 Reason:\n\n ➩ File is already available in Drive.😡\n\n📒 Must Search Files! Before Mirroring\n\n👉 {error}"
         sendMessage(msg, self.bot, self.update)
         if count == 0:
             self.clean()
@@ -405,7 +405,7 @@ def _mirror(bot, update, isTar=False, extract=False, isZip=False, isQbit=False, 
             return
 
     elif not bot_utils.is_url(link) and not bot_utils.is_magnet(link):
-        sendMessage('No download source provided', bot, update)
+        sendMessage('❌ 𝙳𝚘𝚗t 𝚂𝚙𝚊𝚖 𝚙𝚕𝚎𝚊𝚜𝚎 😐\n\n💁‍♀️ 𝐇𝐎𝐖 𝐓𝐎 𝐌𝐈𝐑𝐑𝐎𝐑 ?\n\n📖 Read Document 📖\n\n 👉<a>https://awslink.in/awsmirrorhelp</a>', bot, update)
         return
     elif not os.path.exists(link) and not bot_utils.is_mega_link(link) and not bot_utils.is_gdrive_link(link) and not bot_utils.is_magnet(link):
         try:
@@ -446,11 +446,11 @@ def _mirror(bot, update, isTar=False, extract=False, isZip=False, isQbit=False, 
 
     elif bot_utils.is_mega_link(link):
         if BLOCK_MEGA_LINKS:
-            sendMessage("Mega links are blocked!", bot, update)
+            sendMessage("🚫 Mega links are blocked!", bot, update)
             return
         link_type = bot_utils.get_mega_link_type(link)
         if link_type == "folder" and BLOCK_MEGA_FOLDER:
-            sendMessage("Mega folder are blocked!", bot, update)
+            sendMessage("🚫 Mega folder are blocked!", bot, update)
         else:
             mega_dl = MegaDownloadHelper()
             mega_dl.add_download(link, f'{DOWNLOAD_DIR}{listener.uid}/', listener)

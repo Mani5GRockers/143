@@ -658,57 +658,60 @@ class GoogleDriveHelper:
                         if name != ''
                     )
 
-            query += "trashed = false"
-            if parent_id == "root":
-                return (
-                    self.__service.files()
-                    .list(q=query + " and 'me' in owners",
-                        pageSize=100,
-                        spaces='drive',
-                        fields='files(id, name, mimeType, size, parents)',
-                        orderBy='folder, name asc'
+                query += "trashed = false"
+                if parent_id == "root":
+                    return (
+                        self.__service.files()
+                        .list(q=query + " and 'me' in owners",
+                            pageSize=100,
+                            spaces='drive',
+                            fields='files(id, name, mimeType, size, parents)',
+                            orderBy='folder, name asc'
+                        )
+                        .execute()
                     )
-                    .execute()
-                )
+                else:
+                    return (
+                        self.__service.files()
+                        .list(supportsTeamDrives=True,
+                            includeTeamDriveItems=True,
+                            teamDriveId=parent_id,
+                            q=query,
+                            corpora='drive',
+                            spaces='drive',
+                            pageSize=100,
+                            fields='files(id, name, mimeType, size, teamDriveId, parents)',
+                            orderBy='folder, name asc'
+                        )
+                        .execute()
+                    )
             else:
+                if self.stopDup:
+                    query = f"'{parent_id}' in parents and name = '{fileName}' and "
+                else:
+                    query = f"'{parent_id}' in parents and "
+                    fileName = fileName.split(' ')
+                    for name in fileName:
+                        if name != '':
+                            query += f"name contains '{name}' and "
+                query += "trashed = false"
                 return (
                     self.__service.files()
-                    .list(supportsTeamDrives=True,
+                    .list(
+                        supportsTeamDrives=True,
                         includeTeamDriveItems=True,
-                        teamDriveId=parent_id,
                         q=query,
-                        corpora='drive',
                         spaces='drive',
-                        pageSize=100,
-                        fields='files(id, name, mimeType, size, teamDriveId, parents)',
-                        orderBy='folder, name asc'
+                        pageSize=200,
+                        fields='files(id, name, mimeType, size)',
+                        orderBy='folder, name asc',
                     )
                     .execute()
                 )
-        else:
-            if self.stopDup:
-                query = f"'{parent_id}' in parents and name = '{fileName}' and "
-            else:
-                query = f"'{parent_id}' in parents and "
-                fileName = fileName.split(' ')
-                for name in fileName:
-                    if name != '':
-                        query += f"name contains '{name}' and "
-            query += "trashed = false"
-            return (
-                self.__service.files()
-                .list(
-                    supportsTeamDrives=True,
-                    includeTeamDriveItems=True,
-                    q=query,
-                    spaces='drive',
-                    pageSize=200,
-                    fields='files(id, name, mimeType, size)',
-                    orderBy='folder, name asc',
-                )
-                .execute()
-            )
-
+        except Exception as err:
+            err = str(err).replace('>', '').replace('<', '')
+            LOGGER.error(err)
+            return {'files': []}
 
     def drive_list(self, fileName, stopDup=False, noMulti=False):
         self.stopDup = stopDup
@@ -718,7 +721,13 @@ class GoogleDriveHelper:
         content_count = 0
         all_contents_count = 0
         Title = False
+        if len(DRIVES_IDS) > 1:
+            token_service = self.alt_authorize()
+            if token_service is not None:
+                self.__service = token_service
         for index, parent_id in enumerate(DRIVES_IDS):
+            if RECURSIVE_SEARCH and len(parent_id) > 23:
+                continue
             response = self.drive_query(parent_id, fileName)
             if not response["files"] and noMulti:
                 break

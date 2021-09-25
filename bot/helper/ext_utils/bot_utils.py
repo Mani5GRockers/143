@@ -117,7 +117,7 @@ def get_progress_bar_string(status):
 
 def get_readable_message():
     with download_dict_lock:
-        msg = "\n✥═══ @Mani5GRockers ═══✥\n\n"
+        msg = "\n✥═══ @awsmirrorzone ═══✥\n\n"
         start = 0
         if STATUS_LIMIT is not None:
             dick_no = len(download_dict)
@@ -154,7 +154,7 @@ def get_readable_message():
                 except:
                     pass
                 msg += f"\n<b>🚫 𝐓𝐨 𝐒𝐭𝐨𝐩: 👉 </b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-            msg += "\n\n"
+            msg += "\n\n✥══ @Mani5GRockers ══✥\n\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
         if STATUS_LIMIT is not None and dick_no > STATUS_LIMIT:

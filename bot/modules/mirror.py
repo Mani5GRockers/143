@@ -192,7 +192,7 @@ class MirrorListener(listeners.MirrorListeners):
             uname = f"@{self.message.from_user.username}"
         else:
             uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
-        msg = f"👉 User 🤴 {uname}\n\n👉 Your Mirror has been Stopped ❌\n\n🔘 Reason:\n\n😡 {error}\n\n📒 Must Search Files! Before Mirroring"
+        msg = f"👉 User 🤴 {uname}\n\n👉 Your Mirror has been Stopped ❌\n\n🔘 Reason:\n\n➩ {error}\n\n📒 Must Search Files! Before Mirroring"
         sendMessage(msg, self.bot, self.update)
         if count == 0:
             self.clean()
@@ -432,7 +432,7 @@ def _mirror(bot, update, isTar=False, extract=False, isZip=False, isQbit=False, 
         if TAR_UNZIP_LIMIT is not None:
             result = bot_utils.check_limit(size, TAR_UNZIP_LIMIT)
             if result:
-                msg = f'Failed, Tar/Unzip limit is {TAR_UNZIP_LIMIT}.\nYour File/Folder size is {get_readable_file_size(size)}.'
+                msg = f'❌ Failed, Tar/Unzip limit is {TAR_UNZIP_LIMIT}.\nYour File/Folder size is {get_readable_file_size(size)}.'
                 sendMessage(msg, bot, update)
                 return
         LOGGER.info(f"Download Name : {name}")

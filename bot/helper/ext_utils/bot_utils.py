@@ -187,7 +187,7 @@ def flip(update, context):
     message_utils.update_all_messages()
 
 def check_limit(size, limit, tar_unzip_limit=None, is_tar_ext=False):
-    LOGGER.info('Checking File/Folder Size...')
+    LOGGER.info('👨‍💻 Checking File/Folder Size...')
     if is_tar_ext and tar_unzip_limit is not None:
         limit = tar_unzip_limit
     if limit is not None:

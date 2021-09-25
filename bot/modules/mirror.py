@@ -192,7 +192,7 @@ class MirrorListener(listeners.MirrorListeners):
             uname = f"@{self.message.from_user.username}"
         else:
             uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
-        msg = f"👉 User 🤴 {uname}\n\n👉 Your Mirror has been Stopped ❌\n\n🔘 Reason:\n\n➩ {error}\n\n📒 Must Search Files! Before Mirroring"
+        msg = f"👉 User 🤴 {uname}\n\n👉 Your Mirror has been Stopped ❌\n\n🔘 Reason:\n\n➩ {error}📒 Must Search Files! Before Mirroring"
         sendMessage(msg, self.bot, self.update)
         if count == 0:
             self.clean()

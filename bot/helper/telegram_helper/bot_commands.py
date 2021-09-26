@@ -55,6 +55,5 @@ class _BotCommands:
         self.ShellCommand = getCommand('SHELL_COMMAND', 'shells')
         self.ExecHelpCommand = getCommand('EXECHELP_COMMAND', 'exechelps')
         self.TsHelpCommand = getCommand('TSHELP_COMMAND', 'tshelps')
-        self.TsHelp0Command = getCommand('TSHELP0_COMMAND', 'tshelpss')
 
 BotCommands = _BotCommands()

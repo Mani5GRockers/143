@@ -11,10 +11,3 @@ data*
 authorized_chats.txt
 log.txt
 accounts/*
-dht6.dat
-aria.conf
-.gitignore
-dht.dat
-build
-dist
-*.spec

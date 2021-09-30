@@ -220,7 +220,7 @@ class MirrorListener(listeners.MirrorListeners):
                 chat_id = str(self.message.chat.id)[4:]
                 msg = f"<b>✥══ @awsmirrorzone ══✥\n\n🗂 𝗙𝗶𝗹𝗲𝗡𝗮𝗺𝗲:</b> <a href='https://t.me/c/{chat_id}/{self.uid}'>{link}</a>\n"
                 msg += f'<b>📚 Total Files:</b> {count}\n'
-                msg += f'\n\n<b>👤 User : </b>👉 {uname}\n\n✅ #Uploaded To AWS Drive ✅ \n\n⛔ 𝘿𝙤 𝙣𝙤𝙩 𝙨𝙝𝙖𝙧𝙚 𝗙𝗶𝗹𝗲s 🙂'
+                msg += f'\n<b>👤 User : </b>👉 {uname}\n\n✅ #Uploaded To AWS Drive ✅ \n\n⛔ 𝘿𝙤 𝙣𝙤𝙩 𝙨𝙝𝙖𝙧𝙚 𝗙𝗶𝗹𝗲s 🙂'
                 fmsg = '\n\n <b>✥══ @Mani5GRockers ══✥</b>\n\n'
                 for index, item in enumerate(list(files), start=1):
                     msg_id = files[item]

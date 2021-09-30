@@ -228,8 +228,8 @@ class MirrorListener(listeners.MirrorListeners):
                     fmsg += f"{index}. <a href='{link}'>{item}</a>\n"
                     if len(fmsg) > 3900:
                         sendMessage(msg + fmsg, self.bot, self.update)
-                        fmsg = '\n\n <b>✥══ @Mani5GRockers ══✥</b>\n\n'
-                if fmsg != '':
+                        fmsg = ''
+                if fmsg != '\n\n <b>✥══ @Mani5GRockers ══✥</b>\n\n':
                     sendMessage(msg + fmsg, self.bot, self.update)
             with download_dict_lock:
                 try:

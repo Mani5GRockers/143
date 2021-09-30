@@ -229,7 +229,7 @@ class MirrorListener(listeners.MirrorListeners):
                     if len(fmsg) > 3900:
                         sendMessage(msg + fmsg, self.bot, self.update)
                         fmsg = '\n\n <b>✥══ @Mani5GRockers ══✥</b>\n\n'
-                if fmsg != 'TEST':
+                if fmsg != '':
                     sendMessage(msg + fmsg, self.bot, self.update)
             with download_dict_lock:
                 try:

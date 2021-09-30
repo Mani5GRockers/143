@@ -213,14 +213,14 @@ class MirrorListener(listeners.MirrorListeners):
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             count = len(files)
             if self.message.chat.type == 'private':
-                msg = f'<b>✥══ @awsmirrorzone ══✥\n\n🗂 𝗙𝗶𝗹𝗲𝗡𝗮𝗺𝗲 :</b> <code>{link}</code>\n'
+                msg = f'<b>🗂 𝗙𝗶𝗹𝗲𝗡𝗮𝗺𝗲 :</b> <code>{link}</code>\n'
                 msg += f'<b>📚 Total Files :</b> {count}'
                 sendMessage(msg, self.bot, self.update)
             else:
                 chat_id = str(self.message.chat.id)[4:]
-                msg = f"<b>🗂 𝗙𝗶𝗹𝗲𝗡𝗮𝗺𝗲:</b> <a href='https://t.me/c/{chat_id}/{self.uid}'>{link}</a>\n"
+                msg = f"<b>✥══ @awsmirrorzone ══✥\n\n🗂 𝗙𝗶𝗹𝗲𝗡𝗮𝗺𝗲:</b> <a href='https://t.me/c/{chat_id}/{self.uid}'>{link}</a>\n"
                 msg += f'<b>📚 Total Files:</b> {count}\n'
-                msg += f'\n\n<b>👤 User : </b>👉 {uname}\n\n✅ #Uploaded To AWS Drive ✅ \n\n⛔ 𝘿𝙤 𝙣𝙤𝙩 𝙨𝙝𝙖𝙧𝙚 𝙄𝙣𝙙𝙚𝙭 𝙇𝙞𝙣𝙠 🙂'
+                msg += f'\n\n<b>👤 User : </b>👉 {uname}\n\n✅ #Uploaded To AWS Drive ✅ \n\n⛔ 𝘿𝙤 𝙣𝙤𝙩 𝙨𝙝𝙖𝙧𝙚 𝗙𝗶𝗹𝗲s 🙂'
                 fmsg = '\n\n <b>✥══ @Mani5GRockers ══✥</b>\n\n'
                 for index, item in enumerate(list(files), start=1):
                     msg_id = files[item]
@@ -228,8 +228,8 @@ class MirrorListener(listeners.MirrorListeners):
                     fmsg += f"{index}. <a href='{link}'>{item}</a>\n"
                     if len(fmsg) > 3900:
                         sendMessage(msg + fmsg, self.bot, self.update)
-                        fmsg = ''
-                if fmsg != '':
+                        fmsg = '\n\n <b>✥══ @Mani5GRockers ══✥</b>\n\n'
+                if fmsg != 'TEST':
                     sendMessage(msg + fmsg, self.bot, self.update)
             with download_dict_lock:
                 try:

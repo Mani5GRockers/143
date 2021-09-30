@@ -213,7 +213,7 @@ class MirrorListener(listeners.MirrorListeners):
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             count = len(files)
             if self.message.chat.type == 'private':
-                msg = f'<b>🗂 𝗙𝗶𝗹𝗲𝗡𝗮𝗺𝗲 :</b> <code>{link}</code>\n'
+                msg = f'<b>✥══ @awsmirrorzone ══✥\n\n🗂 𝗙𝗶𝗹𝗲𝗡𝗮𝗺𝗲 :</b> <code>{link}</code>\n'
                 msg += f'<b>📚 Total Files :</b> {count}'
                 sendMessage(msg, self.bot, self.update)
             else:
@@ -228,8 +228,8 @@ class MirrorListener(listeners.MirrorListeners):
                     fmsg += f"{index}. <a href='{link}'>{item}</a>\n"
                     if len(fmsg) > 3900:
                         sendMessage(msg + fmsg, self.bot, self.update)
-                        fmsg = '\n\n <b>✥══ @Mani5GRockers ══✥</b>\n\n'
-                if fmsg != '\n\n <b>✥══ @awsmirrorzone ══✥</b>\n\n':
+                        fmsg = ''
+                if fmsg != '\n\n✥══ @awsmirrorzone ══✥\n\n':
                     sendMessage(msg + fmsg, self.bot, self.update)
             with download_dict_lock:
                 try:

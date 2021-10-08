@@ -1,6 +1,7 @@
 aiohttp
 anytree
 aria2p
+aria2c
 appdirs
 attrdict
 beautifulsoup4

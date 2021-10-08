@@ -14,6 +14,87 @@
 # Latest Commits and updated
      * Commits on Sep 25, 2021 Merge pull request 428 from ronin08/patch-15  @anasty17 anasty17 committed
 
+#Deploying on Heroku using Ubuntu:
+
+* Install Heroku cli
+
+* Login into your heroku account with command:
+
+```
+sudo apt-get update
+sudo apt-get install
+sudo apt install python                #Downloading...
+sudo apt install python3-pip
+sudo pip install pyrogram
+pip install telegraph
+sudo python3 -m pip install --upgrade pip
+sudo apt install nodejs
+sudo apt install git
+sudo pip3 install docker-compose
+sudo apt install npm                   #Downloading...
+sudo npm install -g heroku             #Downloading...
+```
+```
+sudo apt install python3 python3-pip
+sudo apt-get -y install python3-pip
+sudo pip3 install docker-compose
+sudo docker-compose up
+heroku login
+heroku create awsxxxbot                #Change awsxxxbot new app Name your choose
+cd
+git clone https://github.com/mani66660/mirrorxbot
+ls
+cd mirrorxbot                          #Change Repo Name or repo remove cmd $rm -rf MirrorX
+heroku git:remote -a awsxxxbot         #Change awsxxxbot new app Name
+sudo pip3 install -r requirements.txt
+heroku stack:set container -a awsxxxbot             #Free Dynos install   or $heroku stack:set container
+heroku addons:create heroku-postgresql                                    #Create heroku-postgresql database
+git add -f credentials.json token.pickle config.env heroku.yml
+git commit -m "Added Creds."
+git config --global user.email heroku31@tempmail.awslink.in               #Change heroku email id set your email id
+git config --global user.name Your Name                                   #Change your Name
+git commit -m "First Deployment"
+git push heroku master --force                    $git push heroku archived --force   $git push heroku main --force # not working master change archived beta
+
+heroku ps:scale worker=0
+heroku ps:scale worker=1
+    
+heroku logs
+```
+```
+  Install the Heroku CLI
+Download and install the Heroku CLI.
+
+If you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key.
+
+$ heroku login
+
+Create a new Git repository
+Initialize a git repository in a new or existing directory
+
+$ cd
+$ ls
+$ rm -rf mirrorxbot       # old repo remove
+$ git clone https://github.com/mani66660/mirrorxbot
+$ ls
+$ cd mirrorxbot                          #Change Repo Name or repo remove cmd $rm -rf MirrorX
+$ git init
+$ heroku git:remote -a mirrorxbot
+
+Deploy your application
+Commit your code to the repository and deploy it to Heroku using Git.
+
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
+
+You can now change your main deploy branch from "master" to "main" for both manual and automatic deploys, please follow the instructions here.
+Existing Git repository
+For existing repositories, simply add the heroku remote
+
+$ heroku git:remote -a awsmirrorzone0 
+```
+
 ## Bot commands to be set in [@BotFather](https://t.me/BotFather)
 ```
 help - ★ Get Detailed Help ★

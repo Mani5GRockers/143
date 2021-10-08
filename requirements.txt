@@ -1,7 +1,6 @@
 aiohttp
 anytree
 aria2p
-aria2==1.36.0
 appdirs
 attrdict
 beautifulsoup4

@@ -19,7 +19,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 
 from bot import app, dispatcher, bot
-from bot.helper.ext_utils import custom_filters                         #######################################
+from bot.helper.ext_utils import custom_filters
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.message_utils import sendMessage
@@ -355,7 +355,7 @@ def searchhelp(update, context):
 <b> 🧲 Torrent 🔍 Search Avilabile Sites:</b>
 
 <i>★ ts - All Torrent Seacrh</i>
-<i>★ 337x - 337x Torrent Seacrh</i>
+<i>★ 1337x - 1337x Torrent Seacrh</i>
 <i>★ piratebay - Piratebay Torrent Seacrh</i>
 <i>★ tgx - TorrentGalaxy Torrent Seacrh</i>
 <i>★ yts - YTS Torrent Seacrh</i>

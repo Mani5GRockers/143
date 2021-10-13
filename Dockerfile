@@ -18,7 +18,7 @@ RUN chmod +x aria.sh
 RUN wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
 RUN chmod a+rx /usr/local/bin/youtube-dl
 
-RUN chmod a+rx /usr/local/bin/yt-dlp
-RUN wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
+#RUN chmod a+rx /usr/local/bin/yt-dlp
+#RUN wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
 
 CMD ["bash","start.sh"]

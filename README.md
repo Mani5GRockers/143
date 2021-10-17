@@ -39,6 +39,7 @@ sudo apt install python3 python3-pip
 sudo apt-get -y install python3-pip
 sudo pip3 install docker-compose
 sudo docker-compose up
+npm update -g heroku
 heroku login
 heroku create awsxxxbot                #Change awsxxxbot new app Name your choose
 cd

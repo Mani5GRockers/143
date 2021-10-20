@@ -29,7 +29,7 @@ requests
 speedtest-cli
 telegraph
 tenacity
-TgCrypto
+tgcrypto
 torrentool==1.1.0
 urllib3
 yt-dlp

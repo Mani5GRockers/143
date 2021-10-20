@@ -14,6 +14,7 @@ hachoir
 js2py
 lk21
 lxml
+natsort
 pillow
 psutil
 psycopg2-binary
